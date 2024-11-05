@@ -430,6 +430,16 @@ func MsgOptionMeMessage() MsgOption {
 	}
 }
 
+// MsgOptionThreadedAnswer posts a threaded answer to the message.
+func MsgOptionThreadedAnswer(timeStamp string) MsgOption {
+	return func(config *sendConfig) error {
+		config.responseType = "in_channel"
+		config.replaceOriginal = false
+		config.values.Add("thread_ts", timeStamp)
+		return nil
+	}
+}
+
 // MsgOptionUpdate updates a message based on the timestamp.
 func MsgOptionUpdate(timestamp string) MsgOption {
 	return func(config *sendConfig) error {
